@@ -21,7 +21,7 @@ app.post('/', async(c) => {
       body: JSON.stringify(msg)
     });
 
-    const { errcode, errmsg }: WechatResponseJson = await res.json();
+    const { errcode, errmsg: message }: WechatResponseJson = await res.json();
 
     if (errcode === 0) {
       c.status(200);
@@ -32,7 +32,7 @@ app.post('/', async(c) => {
     c.status(400);
 
     return c.json({
-      errmsg,
+      message,
     })
   }
 );
