@@ -1,10 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 
-interface WechatResponseJson {
-  errcode: number;
-  errmsg: string;
-}
+const GITLAB_API_PREFIX = 'https://gitlab.kanjian.com/api/v4';
 
 type Bindings = {
   GITLAB_GROUP_TOKEN: string
@@ -21,11 +18,14 @@ app.get('/project-overview', async(c) => {
     per_page: '100'
   });
 
-  const res = await fetch(`https://gitlab.kanjian.com/api/v4/groups/47/projects?${query}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const res = await fetch(
+    `${GITLAB_API_PREFIX}/groups/47/projects?${query}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
   const body: [] = await res.json();
 
