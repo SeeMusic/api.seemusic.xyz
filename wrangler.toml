@@ -1,5 +1,6 @@
-name = "api-seemusic-xyz"
+name = "fe-api-seemusic-xyz"
 compatibility_date = "2023-12-01"
+account_id = "9fc3c9c90b0ebf9a5f68da6ed7deb3dc"
 
 # [vars]
 # MY_VARIABLE = "production_value"
