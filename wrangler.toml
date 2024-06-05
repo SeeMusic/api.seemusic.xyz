@@ -1,4 +1,4 @@
-name = "fe-api-seemusic-xyz"
+name = "kmfe-api"
 compatibility_date = "2023-12-01"
 account_id = "9fc3c9c90b0ebf9a5f68da6ed7deb3dc"
 
@@ -17,6 +17,3 @@ account_id = "9fc3c9c90b0ebf9a5f68da6ed7deb3dc"
 # binding = "DB"
 # database_name = "my-database"
 # database_id = ""
-
-[placement]
-mode = "smart"
