@@ -15,7 +15,8 @@ app.get('/project-overview', async(c) => {
   const query = new URLSearchParams({
     private_token: c.env.GITLAB_GROUP_TOKEN,
     simple: 'true',
-    per_page: '100'
+    per_page: '100',
+    archived: 'false'
   });
 
   const res = await fetch(
