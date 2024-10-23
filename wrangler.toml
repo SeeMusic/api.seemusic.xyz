@@ -5,9 +5,9 @@ account_id = "9fc3c9c90b0ebf9a5f68da6ed7deb3dc"
 # [vars]
 # MY_VARIABLE = "production_value"
 
-# [[kv_namespaces]]
-# binding = "MY_KV_NAMESPACE"
-# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+[[kv_namespaces]]
+binding = "kmfe"
+id = "0176bec80c8d4cae92f522a3db727762"
 
 # [[r2_buckets]]
 # binding = "MY_BUCKET"
