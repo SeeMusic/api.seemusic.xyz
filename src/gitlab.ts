@@ -4,34 +4,40 @@ import { cors } from 'hono/cors';
 const GITLAB_API_PREFIX = 'https://gitlab.kanjian.com/api/v4';
 
 type Bindings = {
-  GITLAB_GROUP_TOKEN: string
+  GITLAB_GROUP_TOKEN: string,
+  kmfe: KVNamespace
 }
 
 const app = new Hono<{ Bindings: Bindings }>();
 
 app.use('*', cors());
 
+interface Project {
+  id: number,
+  name: string,
+  description: string,
+  url: string,
+}
+
+interface ProjectsData {
+  total: number,
+  data: Project[]
+}
+
 app.get('/project-overview', async(c) => {
-  const query = new URLSearchParams({
-    private_token: c.env.GITLAB_GROUP_TOKEN,
-    simple: 'true',
-    per_page: '100',
-    archived: 'false'
-  });
+  const projectsData: ProjectsData | null = await c.env.kmfe.get('gitlab-projects', 'json');
 
-  const res = await fetch(
-    `${GITLAB_API_PREFIX}/groups/47/projects?${query}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  if (!projectsData) {
+    return c.json({
+      total: 0,
+      data: [],
+    });
+  }
 
-  const body: [] = await res.json();
+  const body = projectsData.data;
 
-  const groupedData = Object.values(body.reduce((acc: any, item: any) => {
-    const { id, name, description, web_url } = item;
+  const groupedData = Object.values(body.reduce((acc: any, item: Project) => {
+    const { id, name, description, url } = item;
 
     const groupName = name.split('-')[0];
 
@@ -42,12 +48,16 @@ app.get('/project-overview', async(c) => {
       id,
       name,
       description: description || '',
-      url: web_url,
+      url,
     });
+
     return acc;
   }, {}));
 
-  return c.json(groupedData);
+  return c.json({
+    total: projectsData.total,
+    data: groupedData,
+  });
 });
 
 export default app;
