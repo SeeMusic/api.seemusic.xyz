@@ -9,6 +9,10 @@ account_id = "9fc3c9c90b0ebf9a5f68da6ed7deb3dc"
 binding = "kmfe"
 id = "0176bec80c8d4cae92f522a3db727762"
 
+[[kv_namespaces]]
+binding = "debugs"
+id = "020fb879ee484933a5359b875e9223d3"
+
 # [[r2_buckets]]
 # binding = "MY_BUCKET"
 # bucket_name = "my-bucket"
